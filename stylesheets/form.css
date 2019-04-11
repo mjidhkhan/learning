@@ -1,0 +1,180 @@
+p, h1, form {border:0; margin:0; padding:0;border-collapse:collapse;}
+.spacer{clear:both; height:1px;}
+
+form table {
+	width: 100%;
+	text-align: left;
+	border:0px;
+	border-collapse:collapse;
+	/*line-height:2.5em;*/
+}
+
+from table th, td {
+
+	font-size: 12px;
+}
+
+form table th {
+	color: #fff;
+	background: #2783C0 url('../images/headerbg.jpg') repeat-x scroll bottom left;
+}
+
+form table td {
+	background: #ffffff;
+	border-bottom: #ddd;
+}
+form div{
+	margin:0 0 0.25ex 0;
+	border:0px;
+}
+form p{
+	font-size:11px;
+	color:#666666;
+	margin-bottom:20px;
+	border-bottom:solid 3px #b7ddf2;
+	padding-bottom:10px;
+}
+form label{
+	width: 10em;
+	display:block;
+	float:left;
+	font-weight:bold;
+	padding-right:1.5em;
+}
+.required{
+
+}
+label.secondary{
+	float:none;
+	width:auto;
+	font-weight:normal;
+	margin:.5em 0 0 0;
+	padding-left:0em;
+}
+.ingredient{
+	clear:both;
+	width:auto;
+	float:none;
+	/*font-size: 11px;*/
+	font-weight:bold;
+	margin:0.5em 0.2em 0.5em .5em;
+}
+.readonly{
+	color:#999999;
+}
+.ingredient.qty{
+	clear:both;
+	float:none;
+}
+label.secondary.sec{
+	float:none;
+	width:auto;
+	font-weight:normal;
+	margin:0.5em 0 0.5em 6em;
+	padding-left:5.5em;
+}
+form .small{
+	color:#666666;
+	/*display:block;*/
+	font-size:10px;
+	font-weight:normal;
+	text-align:right;
+	width:140px;
+}
+.req{
+	color: red;
+	font-weight: bold;
+}
+form .small_inst{
+
+	font-weight: bold;
+	display:block;
+	font-size:10px;
+	clear:both;
+}
+form div.actions{
+	margin-left:10.3em;
+	padding-left:1.2em;
+
+}
+form input.formbutton {
+	border: none;
+	background: #2783C0 url('../images/headerbg.jpg') repeat-x scroll bottom left;
+	color: #ffffff;
+	font-weight: bold;
+	padding: 6px 10px;
+	font-size: 12px;
+	font-family: Tahoma, Geneva, sans-serif;
+	letter-spacing: 1px;
+	width: auto;
+	overflow: visible;
+	margin:0.5em 0 0.5em 0;
+}
+form input.logbutton {
+	border: none;
+	background: #2783C0 url('../images/headerbg.jpg') repeat-x scroll bottom left;
+	color: #ffffff;
+	font-weight: bold;
+	padding: 6px 10px;
+	font-size: 12px;
+	font-family: Tahoma, Geneva, sans-serif;
+	letter-spacing: 1px;
+	width: auto;
+	overflow: visible;
+	margin:0.5em 0 0.5em 0;
+}
+form textarea{
+	margin:0.5em 0 0.1em 0;
+}
+form legend {
+	margin-top: 1em;
+	font-weight: bold;
+	font-size: 12px;
+	padding-left: 0px;
+	color: blue;
+}
+form table table fieldset{
+	border:2px solid #CCCCCC;
+	/*width:400px;*/
+	margin-left: 0em;
+	margin-bottom:1em;
+	margin-top: 1em;
+}
+form fieldset input, select {
+	margin:0.5em 0 0.5em 0;
+}
+form fieldset hr{
+	clear:both;
+	border:1px solid #CCCCCC;
+}
+form fieldset {
+	margin-top:1em;
+	display: block;
+	border: none;
+	margin-left: 11.5em;
+	margin-bottom: 1em;
+	margin-right: 8em;
+}
+form fieldset label{
+	display:block;
+	margin-top: 0.5em;
+	float:left;
+	font-weight:normal;
+	padding-right:1.5em;
+}
+ label.low{
+	color:blue;
+	font-weight: bold;
+}
+.formlink{
+	color:red;
+	font-weight:normal;
+	text-decoration: none;
+}
+a:hover {
+	color:blue;
+	/*font-weight:bold;*/
+}
+a:focus {
+	outline: none;
+}
