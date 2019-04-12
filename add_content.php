@@ -9,10 +9,9 @@ if (isset($_POST['submit'])){
 	$m_cat_id = $_POST['m_cat_id'];
 	$m_type_id = $_POST['m_type_id'];
 	$elm1	= $_POST['elm1'];
-	$query 	=$dbh->prepare( "INSERT INTO contents(
-		         title, visible, m_cat_id, m_type_id, content
-		  )VALUES(':title, :visible, :m_cat_id,:m_type_id, :elm1')");
-		$query->execute(array(':title'=>$title, ':visible'=> $visible, ':m_cat_id'=>$m_cat_id, ':m_type_id'=>$m_type_id, ':elm1'=>$elm1));
+	$query 	=$dbh->prepare( "INSERT INTO contents(title, visible, m_cat_id, m_type_id, content )
+													VALUES(:title, :visible, :m_cat_id,:m_type_id, :content)");
+		$query->execute(array(':title'=>$title, ':visible'=> $visible, ':m_cat_id'=>$m_cat_id, ':m_type_id'=>$m_type_id, ':content'=>$elm1));
 		      if ($query->rowCount() == 1) {
 		      // Success
 		      redirect_to("meals.php");
