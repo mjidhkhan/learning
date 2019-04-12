@@ -106,6 +106,7 @@ contents img:nth-child {
     color: #D3600E;
     text-indent: 1em;
     vertical-align: text-top;
+    line-height: 34px;
 }
 
 .title {

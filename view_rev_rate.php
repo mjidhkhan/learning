@@ -40,15 +40,15 @@
                             <p> <?php echo $row['date'] ;?></p>
                             <p>  Rated: <?php
                                             if($row['rating'] == 1){
-                                                echo '<img src="images/1star.gif"/> ' ;}
+                                                echo '<img style="width:inherit; height:inherit" src="images/1star.gif"/> ' ;}
                                             if($row['rating'] == 2){
-                                                echo '<img src="images/2star.gif"/>' ;}
+                                                echo '<img style="width:inherit; height:inherit" src="images/2star.gif"/>' ;}
                                             if($row['rating'] == 3){
-                                                echo '<img src="images/3star.gif"/>' ;}
+                                                echo '<img style="width:inherit; height:inherit" src="images/3star.gif"/>' ;}
                                             if($row['rating'] == 4){
-                                                echo '<img src="images/4star.gif"/>' ;}
+                                                echo '<img style="width:inherit; height:inherit" src="images/4star.gif"/>' ;}
                                             if($row['rating'] == 5){
-                                                echo '<img src="images/5star.gif"/>' ;}
+                                                echo '<img style="width:inherit; height:inherit" src="images/5star.gif"/>' ;}
                                             if($row['rating'] == null){
                                                     echo '<p class ="star-rate"> This Porducted is not reviewed or rated. ';
                                                 }

@@ -55,15 +55,15 @@
                             <p> <?php echo $row_1['date'] ;?></p>
                             <p>  Rated: <?php
                                             if($row_1['rating'] == 1){
-                                                echo '<img src="../images/1star.gif"/> ' ;}
+                                                echo '<img style="width:inherit; height:inherit" src="images/1star.gif"/> ' ;}
                                             if($row_1['rating'] == 2){
-                                                echo '<img src="../images/2star.gif"/>' ;}
+                                                echo '<img style="width:inherit; height:inherit" src="images/2star.gif"/>' ;}
                                             if($row_1['rating'] == 3){
-                                                echo '<img src="../images/3star.gif"/>' ;}
+                                                echo '<img style="width:inherit; height:inherit" src="images/3star.gif"/>' ;}
                                             if($row_1['rating'] == 4){
-                                                echo '<img src="../images/4star.gif"/>' ;}
+                                                echo '<img style="width:inherit; height:inherit" src="images/4star.gif"/>' ;}
                                             if($row_1['rating'] == 5){
-                                                echo '<img src="../images/5star.gif"/>' ;}
+                                                echo '<img style="width:inherit; height:inherit" src="images/5star.gif"/>' ;}
                                             if($row_1['rating'] == null){
                                                     echo '<p class ="star-rate"> This Porducted is not reviewed or rated. ';
                                                 }
@@ -76,11 +76,14 @@
                 <?php } ?>
 
                 <div class="clear"></div>
+                
                 </div>
          <?php }?>
 
         <div>
+        
         </div>
+       
 
 	<!------ content area sends here            ----->
         <?php  include("includes/sidebar.php");?>
