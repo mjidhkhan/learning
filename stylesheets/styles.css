@@ -58,14 +58,18 @@ div.desc {
 /* Content style */
 
 hr {
-    border: .1em solid #dddddd;
+    border: 1px solid #dddddd;
     margin-bottom: 2em;
 }
 
 .contents {
     text-align: justify;
-    font-size: 12px;
+    font-size: 14px;
     font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+contents img:nth-child {
+    width: 30%
 }
 
 
@@ -468,10 +472,9 @@ li ul {
 /*-------------------------------*/
 
 #accordion {
-    width: 270px;
+    width: 278px;
     padding-left: 0;
     float: left;
-    background-color: #eee;
     border-bottom: 2px solid #999;
 }
 
@@ -534,10 +537,9 @@ li ul {
 
 #special-head {
     width: 270px;
-    background-color: #eee;
     padding-left: 10px;
     padding-bottom: 20px;
-    padding-top: 200px;
+    padding-top: 20px;
 }
 
 
@@ -687,10 +689,14 @@ input.formbutton {
     width: auto;
 }
 
-.myImg {
+img {
     padding-right: 20px;
     padding-bottom: 20px;
     float: left;
-    width: 30%;
+    width: 40%;
     height: 20%
+}
+
+#sidebar {
+    width: 280px !important;
 }

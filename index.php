@@ -12,12 +12,15 @@
 		$sql = $dbh->prepare("SELECT * FROM `contents` Where visible = 1");
 		$sql->execute();
         ?>
+        <hr>
 	<?php while($row= $sql->fetch()){ ?>
-                <h3><?php echo $row['title']; ?></h3>
+                <h3 style="background-color:#eee; height:34px; padding:20px 0 0 20px"><?php echo $row['title']; ?></h3>
+               
                 <p class="contents"><?php echo $row['content']; ?></p>
+                <br>
                 <hr>
         <?php }?>
 	<!--  ---- content area sends here            ---  -->
         <?php  include("includes/sidebar.php");?>
-<?php  include("includes/special.php");?>
+
 	<?php include("includes/footer.php"); ?>
