@@ -38,7 +38,7 @@
                                 <p> <h3>Meal <?php echo $row['title'] ;?></h3></p>
                                 <h3><strong> <?php echo $row['fullname'] ;?> </Strong></h3></p>
                             <p> <?php echo $row['date'] ;?></p>
-                            <p>  Rated: <?php
+                            <p>   <?php
                                             if($row['rating'] == 1){
                                                 echo '<img style="width:inherit; height:inherit" src="images/1star.gif"/> ' ;}
                                             if($row['rating'] == 2){
@@ -58,7 +58,7 @@
 
 
 
-                            <p> <h3> <?php echo $row['cont_title'] ;?></h3></p>
+                            <h3> <?php echo $row['cont_title'] ;?></h3>
                             <p> <?php echo $row['review'] ;?> </p>
                         </li>
                     </ul>

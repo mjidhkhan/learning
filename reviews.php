@@ -7,17 +7,15 @@
         <?php  if (logged_in() && $_SESSION['status']== 2){?>
             <h3> Welcome,  <?php echo $user = strtoupper($_SESSION['username']);?> to Rate & Review </h3>
 	<?php //this query will show all available courses
-                $content = $_GET['cont'];
-		$sql = "SELECT * FROM `contents`
-                Where id = $content";
-		$result = mysql_query($sql);
-                while($row= mysql_fetch_array($result)){ $title = $row['title']; }
-               
-                $sql_1="SELECT *
+		$sql =  $dbh->prepare("SELECT * FROM `contents`
+                Where id =:id");
+                $sql->execute(array(':id'=>$_GET['id']));
+        while($row= $sql->fetch()){$title = $row['title']; }
+                $sql_1= $dbh->prepare("SELECT *
                             FROM users 
-                            WHERE username = '$user' ";
-                    $result_1= mysql_query($sql_1);
-                    while($row_1= mysql_fetch_array($result_1)){ 
+                            WHERE username =:username");
+                         $sql_1->execute(array(':username'=>$user));
+                    while($row= $sql_1->fetch()){ 
         ?>
         <div class="reviews">
         <h3> <p class= "title"> Rating & Review</h3>
@@ -26,7 +24,7 @@
             <table>
             <tr>
                 <td class="cont ">Your Name:</td>
-                <td><input type="text" class="readonly" readonly="true" name="username"  value="<?php echo strtoupper($row_1['fullname'])?>" id="username" size="50" /></td>
+                <td><input type="text" class="readonly" readonly="true" name="username"  value="<?php echo strtoupper($row['fullname'])?>" id="username" size="50" /></td>
             </tr>
             <tr>
                 <td class="cont">Product Name:</td>

@@ -1,43 +1,39 @@
-<?php require_once("includes/session.php"); ?>
-<?php require_once("includes/functions.php"); ?>
-<?php require_once("includes/connection.php"); ?>
 <?php
-        if (isset($_POST['submit'])){
-	//fetching data from user input
+ require_once("includes/session.php"); 
+ require_once("includes/functions.php"); 
+ require_once("includes/connection.php"); 
+
+if (isset($_POST['submit'])){
 	$u_title = $_POST['title'];
-	$username = ($_POST['username']);
-        $rating = ($_POST['rating']);
-        $your_title = htmlentities(($_POST['your_title']));
-        $review = htmlentities($_POST['review']);
-            // fetching user id from user table
-                $sql_1="SELECT *
-                            FROM users 
-                            WHERE username = '$username' ";
-                    $result_1= mysql_query($sql_1);
-                    while($row_1= mysql_fetch_array($result_1)){
-                        $user_id = $row_1['id'];
-                    }
-                    // fetching content id from content tables
-                    $sql_2="SELECT *
-                            FROM contents 
-                            WHERE title = '$u_title' ";
-                    $result_2= mysql_query($sql_2);
-                    while($row_2= mysql_fetch_array($result_2)){
-                        $id = $row_2['id'];
-                    }
+	$username =$_SESSION['username'];
+    $rating = $_POST['rating'];
+    $your_title = htmlentities($_POST['your_title']);
+    $review = htmlentities($_POST['review']);
+    $date = date("Y-m-d H:i:s");
+    // fetching user id from user table
+    $sql= $dbh->prepare("SELECT * FROM users  WHERE username =:username");
+    $sql->execute(array(':username'=> $username));
+
+   
+    while($row = $sql->fetch()){
+       echo $user_id = $row['id'];
+    }
+    // fetching content id from content tables
+    $selectTitle= $dbh->prepare("SELECT * FROM contents WHERE title =:title");
+    $selectTitle->execute(array(':title'=> $u_title));
+    while($titles= $selectTitle->fetch()){
+         $id = $titles['id'];
+    }
 	// adding review into datbase 
-	$query 	= "INSERT INTO review_rating (
-                        user_id, cont_id, rating, title, review, date
-                    )VALUES(
-                        {$user_id},{$id},{$rating},'{$your_title}','{$review}', NOW() )";
-		$result = mysql_query($query);
-		      if (mysql_affected_rows() == 1) {
-		      // if record added we redirect to meals.php
-		      redirect_to("meals.php");
-		      } else {
-		      // Failed
-		     $message = "The subject update failed.";
-		     $message .= "<br />". mysql_error();
-		}
-        }
+	$query 	= $dbh->prepare( "INSERT INTO review_rating (user_id, cont_id, rating, cont_title, review, date )
+                              VALUES(:user_id, :cont_id, :rating, :cont_title, :review, :date)");
+   if  ($query->execute(array(':user_id'=>$user_id, ':cont_id'=>$id, ':rating'=>$rating, ':cont_title'=>$your_title,':review'=>$review, ':date'=>$date)))
+    {
+                            redirect_to("meals.php");
+    } else {
+             
+              // @TODO: creat error page here
+		echo $message = "The subject update failed.";
+	}
+}
 ?>
