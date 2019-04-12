@@ -23,23 +23,21 @@ if (isset($_POST['submit'])) { // Form has been submitted
                                     $message = "Password must be between 6 to 25 characters";
                                 }else{
                                     $hashed_password = sha1($password);
-                                    $sql= "SELECT username FROM users
-                                            WHERE username = '$username'";
-                                        $result = mysql_query($sql);
-                                        $count= mysql_num_rows($result);
-                                                if($count!=0){
+                                    $sql= $dbh->prepare("SELECT username FROM users
+                                            WHERE username =:username ");
+                                            $sql->execute(array(':username'=>$username))
+                                        $result = $sql->rowCount();
+                                       // $count= mysql_num_rows($result);
+                                                if($result>0){
                                                     //user exist
                                                     $message = "The user with Name: $username already exist."; 
                                                 }else{
                                                     //register
-                                                    $sql = "INSERT INTO users (
-                                                                           fullname, username,email, hashed_password, status
-                                                                    ) VALUES (
-                                                                            '{$fullname}','{$username}','{$email}', '{$hashed_password}',{$status}
-                                                                    )";
-                                                    $result = mysql_query($sql);
-                                                    if ($result) {
-								redirect_to("user_login.php");
+                                                    $sql = $dbh->prepare("INSERT INTO users (fullname, username,email, hashed_password, status) 
+                                                            VALUES (:fullname, :username,:hashed_password, :status)");
+                                                    if($sql->execute(array(':fullname'=>$fullname, ':username'=>$username,
+                                                                    ':hashed_password'=>$hashed_password, ':status'=>$status))){
+                                                        redirect_to("user_login.php");
                                                         $message = "The user was successfully created.";
                                                     } else {
                                                         $message =  "The user could not be created.";

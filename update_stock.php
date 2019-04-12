@@ -6,14 +6,12 @@ if (isset($_POST['submit'])){
 	//fetching ingredients id's from user input
 	$ing_1 = $_POST['ing_1'];
 	$new_qty = htmlentities($_POST['quantity_2']);
-	$query = "UPDATE ingredients SET 
-		      quantity = {$new_qty} 
-		WHERE id = {$ing_1}";
-		$result = mysql_query($query);
-		      if (mysql_affected_rows() == 1) {
-		      // Success
+	$query = $dbh->prepare("UPDATE ingredients SET 
+		      quantity =:quantity {$new_qty} 
+		WHERE id =:id {$ing_1}");
+		if($sql->execute(array(':quantity'=>$new_qty, ':id'=>$ing_1))){
 		      redirect_to("rcp_plane.php");
-		      } else {
+		} else {
 		      // Failed
 		    echo "stock update failed.";
 		    echo mysql_error();

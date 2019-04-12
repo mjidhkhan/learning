@@ -15,8 +15,9 @@ if (isset($_POST['submit'])){
         $qty_2 = htmlentities($_POST['quantity_2']);
         $qty_3 = htmlentities($_POST['quantity_3']);
         $qty_4 = htmlentities($_POST['quantity_4']);
-	$sql= "SELECT * FROM ingredients WHERE id = $item_1 LIMIT 1";
-	$result = mysql_query($sql);
+	$sql= $dbh->prepare("SELECT * FROM ingredients WHERE id =:id LIMIT 1");
+	$sql->execute(array(':id'=> $item_1));
+	//$result = mysql_query($sql);
 		echo"<div>";
 		echo"<h3>Quantity Check for Meal Coures Preperation</h3>";
 		echo"</div>";
@@ -26,7 +27,7 @@ if (isset($_POST['submit'])){
 		echo "<th>Required Quantity</th>";
 		echo "<th>Available Quantity</th>";
 		echo "<th>Option</th></tr>";
-                while( $row = mysql_fetch_array($result)){
+                while( $row = $sql->fetch()){
 				echo "<tr><td>";
 				echo $row ['ingredient_name'];
 				echo "</td><td>";
@@ -41,10 +42,10 @@ if (isset($_POST['submit'])){
 						}
 				echo "</td></tr>";
 		}
-		$sql= "SELECT * FROM ingredients WHERE id = $item_2 LIMIT 1";
-		$result = mysql_query($sql);
-		while( $row = mysql_fetch_array($result)){
-				echo "<tr><td>";
+		$sql= $dbj->prepare("SELECT * FROM ingredients WHERE id =:id LIMIT 1");
+		$sql->execute(array(':id'=> $item_2));
+		//$result = mysql_query($sql);
+		while( $row = $sql->fetch()){
 				echo $row ['ingredient_name'];
 				echo "</td><td>";
 				echo (htmlentities($_POST['quantity_2'])*$servings);
@@ -58,9 +59,10 @@ if (isset($_POST['submit'])){
 						}
 				echo "</td></tr>";
 		}
-		$sql= "SELECT * FROM ingredients WHERE id = $item_3 LIMIT 1";
-		$result = mysql_query($sql);
-		while( $row = mysql_fetch_array($result)){
+		$sql= $sql->prepare("SELECT * FROM ingredients WHERE id =:id LIMIT 1");
+		//$result = mysql_query($sql);
+		$sql->execute(array(':id'=> $item_3));
+		while( $row = $sql->fetch()){
 				echo "<tr><td>";
 				echo $row ['ingredient_name'];
 				echo "</td><td>";
@@ -75,9 +77,10 @@ if (isset($_POST['submit'])){
 						}
 				echo "</td></tr>";
 		}
-		$sql= "SELECT * FROM ingredients WHERE id = $item_4 LIMIT 1";
-		$result = mysql_query($sql);
-		while( $row = mysql_fetch_array($result)){
+		$sql=$dbh->prepare( "SELECT * FROM ingredients WHERE id =:id LIMIT 1");
+		$sql->execute(array(':id'=> $item_4));
+		//$result = mysql_query($sql);
+		while( $row = $sql->fetch()){
 				echo "<tr><td>";
 				echo $row ['ingredient_name'];
 				echo "</td><td>";
