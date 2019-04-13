@@ -2,7 +2,8 @@
 <?php require_once("includes/connection.php"); ?>
 <?php require_once("includes/functions.php"); ?>
 <?php
-print_r($_SESSION);
+print_r($_POST);
+if( !empty($_POST)){
 $id = ($_POST['course_id']);
 $user_name= $_SESSION['username'];
 $course_id = ($_POST['course_id']);
@@ -29,6 +30,13 @@ echo "</br>course_name:" ;
 echo $course_id;
 echo "</br>servings:" ; 
 echo $servings;
+}else{
+
+}
+
+
+
+
 
 
 
@@ -36,10 +44,10 @@ echo $servings;
 
 
 /* Fetching user_id on the bases of login user */
-$sql= "SELECT * FROM users
-	 WHERE username =:username ";
-$result = mysql_query($sql);
-while ($row = mysql_fetch_array($result)){
+$sql= $dbh->prepare("SELECT * FROM users
+	 WHERE username =:username ");
+$sql->execute(array(':username'=>$user_name));
+while ($row = $sql->fetch()){
 	$u_name= $row['fullname'];
 	}
 /*  INSERting DATA to orders Table */

@@ -2,6 +2,7 @@
 require("constants.php");
 
 $dbh = new PDO('mysql:host='.DB_SERVER.';dbname='.DB_NAME, DB_USER, DB_PASS);
+$dbh-> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 // 1. Create a database connection using constants which are included as required.
 //$connection = mysql_connect(DB_SERVER,DB_USER,DB_PASS);
 //if (!$dbh) {

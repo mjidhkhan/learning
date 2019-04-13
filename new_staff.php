@@ -4,65 +4,71 @@
 <?php// confirm_logged_in(); ?>
 <?php
 if (isset($_POST['submit'])) { // Form has been submitted
-    
-                $username = trim($_POST['username']);
-                $fullname = trim($_POST['fullname']);
-		$password = trim($_POST['password']);
-                $repeatpassword = trim($_POST['repeatpassword']);
-                $email    = trim($_POST['email']);
-                $status   = 1;
-                    // check all fields are filled in.
-                    if($username && $fullname && $password && $repeatpassword && $email){
-                        //validation for password and repeat password 
-                        if($password == $repeatpassword){
-                            //Fullname and username length validation
-                            if(strlen($fullname)>25 || strlen($username)>25){
-                                $message = "Fullname or Username is too long";
-                                //Length validation ends
-                            }else{
-                                // Password length validation password between 6 to 25 characters
-                                if(strlen($password)>25 || strlen($password)<6){
-                                    $message = "Password must be between 6 to 25 characters";
-                                }else{
-                                    $hashed_password = sha1($password);
-                                    $sql= $dbh->prepare("SELECT username FROM users
-                                            WHERE username =:username ");
-                                            $sql->execute(array(':username'=>$username))
-                                        $result = $sql->rowCount();
-                                                if($result>0){
-                                                    //user exist
-                                                    $message = "The user with Name: $username already exist."; 
-                                                }else{
-                                                    //register
-                                                    $sql = $dbh->prepare("INSERT INTO users (fullname, username,email, hashed_password, status) 
-                                                            VALUES (:fullname, :username,:hashed_password, :status)");
-                                                    if($sql->execute(array(':fullname'=>$fullname, ':username'=>$username,
-                                                                    ':hashed_password'=>$hashed_password, ':status'=>$status))){
-                                                        redirect_to("user_login.php");
-                                                        $message = "The user was successfully created.";
-                                                    } else {
-                                                        $message =  "The user could not be created.";
-                                                        $message .= "<br />" . mysql_error();
-                                                    }
-                                                }    
-                                    }
-                                }
-                        }else{
-                            $message="Password donot match";
-                            //passwoed match validation ends.
-                        }
+    $username = trim($_POST['username']);
+    $fullname = trim($_POST['fullname']);
+	$password = trim($_POST['password']);
+    $repeatpassword = trim($_POST['repeatpassword']);
+    $email    = trim($_POST['email']);
+    $status   = 1;
+    // check all fields are filled in.
+    if($username && $fullname && $password && $repeatpassword && $email){
+        //validation for password and repeat password 
+        if($password == $repeatpassword){
+            //Fullname and username length validation
+            if(strlen($fullname)>25 || strlen($username)>25){
+                $message = "Fullname or Username is too long";
+                //Length validation ends
+            }else{
+                // Password length validation password between 6 to 25 characters
+                if(strlen($password)>25 || strlen($password)<6){
+                    $message = "Password must be between 6 to 25 characters";
+                }else{
+                    $hashed_password = sha1($password);
+                    $sql= $dbh->prepare("SELECT username FROM users WHERE username =:username");
+                    $sql->execute(array(':username'=>$username));
+                    $result = $sql->rowCount();
+                    if($result>0){
+                        //user exist
+                        $message = "The user with Name: $username already exist."; 
                     }else{
-                        $message= "Please fill in all fields.";
-                        //fields input validation ends.
+                        //register
+                        try{
+                            $sql = "INSERT INTO users (fullname, username, email, hashed_password, status) 
+                                    VALUES (:fullname, :username, :email, :hashed_password, :status )";
+                            $query = $dbh->prepare($sql);
+                            $result = $query->execute(array(':fullname'=>$fullname, ':username'=>$username, ':email'=>$email,
+                                                            ':hashed_password'=>$hashed_password, ':status'=>$status));
+                            echo $result;
+                           
+                            if($result){
+                                redirect_to("user_login.php");
+                                $message = "The user was successfully created.: ".$hashed_password;
+                            }else{
+                                echo 'Error';
+                                $message =  "The user could not be created.";
+                            }
+                        } catch (PDOException $e) {
+                            echo $e->getMessage();
+                                            exit;
+                        }
                     }
-		
-	} else { // Form has not been submitted.
-		$username = "";
-                $fullname ="";
-                $email = "";
-		$password = "";
-                $repeatpassword = "";
+                }
+            }
+        }else{
+            $message="Password donot match";
+            //passwoed match validation ends.
         }
+    }else{
+        $message= "Please fill in all fields.";
+        //fields input validation ends.
+    }
+} else { // Form has not been submitted.
+    $username = "";
+    $fullname ="";
+    $email = "";
+    $password = "";
+    $repeatpassword = "";
+}
 ?>
 <?php include("includes/header.php"); ?>
 	<!------ content area stats here            ----->		

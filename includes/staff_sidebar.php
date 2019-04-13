@@ -10,7 +10,7 @@
                                 <?php if($_SESSION['status'] ==1){ ?>
                                 <li><a href="index.php">Front End</a></li>
                                 <li><a href="new_dish.php"> New Dish </a></li>
-                                <li><a href="order_info.php">View orders</a></li>
+                                <li><a href="view_orders.php">View orders</a></li>
                                 <li><a href="new_staff.php">New Staff</a></li>
                                 <li><a href="logout.php">Logout</a></li>
                                 <?php } ?>

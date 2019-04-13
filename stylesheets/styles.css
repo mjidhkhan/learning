@@ -690,7 +690,7 @@ input.formbutton {
     width: auto;
 }
 
-img {
+.img {
     padding-right: 20px;
     padding-bottom: 20px;
     float: left;
