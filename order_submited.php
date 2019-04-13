@@ -13,6 +13,23 @@
 	$date  = ($_POST['date']);
 	$ord_date = date('Y-m-d');
 	$ord_status= 1;
+
+
+	$customer_id = $_SESSION['user_id'];
+	$meal_type = ($_POST['meal_type']);
+	$meal_course = ($_POST['meal_course']); // Meal Course Type [1-5 : Startesn Main Course,...]
+	$course_id = ($_POST['course_name']); 
+	$servings  = ($_POST['servings']);
+	$booking_date  = ($_POST['booking_date']);
+	$order_date = date('Y-m-d');
+	$order_status= 1;
+
+
+
+
+
+
+
 	/* Fetching user_id on the bases of login user */
 	$sql= "SELECT * FROM users
 	     WHERE username =:username ";

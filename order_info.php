@@ -2,34 +2,62 @@
 <?php require_once("includes/connection.php"); ?>
 <?php require_once("includes/functions.php"); ?>
 <?php
-print_r($_POST);
+//print_r($_POST);
+//print_r($_SESSION);
+/*
+meal_category: 1
+course_type: 3
+meal_type: 2
+servings: 4
+booking_date: 2019-04-19
+submit_order: Place Order
+
+*/
+
+
+
 if( !empty($_POST)){
-$id = ($_POST['course_id']);
-$user_name= $_SESSION['username'];
-$course_id = ($_POST['course_id']);
-$course_type = ($_POST['meal_category']);
+
+$customer_id = $_SESSION['user_id'];
+
+
 $meal_type = ($_POST['meal_type']);
+$meal_course = ($_POST['meal_course']); // Meal Course Type [1-5 : Startesn Main Course,...]
+$course_id = ($_POST['course_name']); 
+
+
 $servings  = ($_POST['servings']);
-$date  = ($_POST['booking_date']);
-$ord_date = date('Y-m-d');
-$ord_status= 1;
+$booking_date  = ($_POST['booking_date']);
+$order_date = date('Y-m-d');
+$order_status= 1;
 
 
-echo "</br> customer_id:" ;  
-echo $user_name;
-echo "</br>order_date:" ;
 
-echo $ord_date;
-echo "</br>booking_date:" ; 
-echo $date;
-echo "</br>meal_type:" ; 
+echo "</br> Customer ID:" ;  
+echo $customer_id;
+
+
+echo "</br> Meal Type:" ;  
 echo $meal_type;
-echo "</br>course_type:" ; 
-echo $course_type;
-echo "</br>course_name:" ; 
+echo "</br> Meal Course:" ;  
+echo $meal_course;
+echo "</br> Course ID:" ;  
 echo $course_id;
-echo "</br>servings:" ; 
+
+
+
+
+echo "</br> Servings:" ;  
 echo $servings;
+echo "</br> Booking Date:" ;  
+echo $booking_date;
+echo "</br> Order Date:" ;  
+echo $order_date;
+echo "</br> Order Status:" ;  
+echo $order_status;
+
+
+
 }else{
 
 }
@@ -58,6 +86,7 @@ $sql = "INSERT INTO orders (
 						)";
 			$result = mysql_query($sql);
 		 
+			/*
 echo "</br> customer_id:" ;  
 echo $user_name;
 echo "</br>order_date:" ;
@@ -73,6 +102,7 @@ echo "</br>course_name:" ;
 echo $course_name;
 echo "</br>servings:" ; 
 echo $servings;
+*/
 
 ?>
 <?php

@@ -4,11 +4,11 @@
 <?php
 
     
-    if (isset($_POST['submit'])){
+if (isset($_POST['submit'])){
 	// Perform Update
-        $id = htmlentities($_POST['course_id']);
+    $id = htmlentities($_POST['course_id']);
 	$course_name = htmlentities($_POST['course_name']);
-        $prep_date = htmlentities($_POST['prep_date']);
+    $prep_date = htmlentities($_POST['prep_date']);
 	$course_type = htmlentities($_POST['course_category']);
 	$time_to_prepare  = htmlentities($_POST['time_to_prepare']);
 	$course_notes  = htmlentities($_POST['course_notes']);
@@ -18,7 +18,7 @@
 ?>
 	
 <?php //this query will show all available courses
-		
+		//print_r($_SESSION);
 		
         ?>
     
@@ -29,22 +29,19 @@
 	<form action="order_info.php" method="post">
 	    
 	    <table>
-		<tr>
-		    <td>Customer Name:</td>
-		    <td><input type="text" name="username" maxlength="30" value="<?php echo strtoupper($_SESSION['username']);?>" /></td>
-		</tr>
+		
 		<tr>
 		    <td>Meal Type:</td>
 		    <td> 
 				<div id="show_sub_categories">
-			    <select name="meal_category" class="parent">
-					<option value="" selected="selected">-- Meal Type --</option>
+			    <select name="meal_type" class="parent">
+					<option value="" selected="selected">Select Meal Type</option>
 				<?php
-					$query = $dbh->prepare("select * from meal_category");
+					$query = $dbh->prepare("select * from meal_type");
 					$query->execute();
 					while ($rows = $query->fetch())
 				{?>
-					<option value="<?php echo $rows['id'];?>"><?php echo $rows['meal_category'];?></option>
+					<option value="<?php echo $rows['id'];?>"><?php echo $rows['type'];?></option>
 				<?php
 				}?>
 				</select>	
@@ -53,11 +50,11 @@
 		    </td>
 		</tr>
 		<tr>
-		    <td>Course Type:</td>
+		    <td>Meal Course :</td>
 		    <td> 
 				<div id="show_sub_categories">
-			    <select name="course_type" class="parent">
-					<option value="" selected="selected">-- Course Type --</option>
+			    <select name="meal_course" class="parent">
+					<option value="" selected="selected">Select Meal Course  </option>
 				<?php
 					$query = $dbh->prepare("select * from meal_category");
 					$query->execute();
@@ -73,7 +70,7 @@
 		</tr>
 		<tr>
 		    <td>Course Name:</td>
-		    <td><select id="meal_type" name="meal_type" >
+		    <td><select id="course_name" name="course_names" >
 				    <?php
 				    $sql = $dbh->prepare("SELECT * FROM `meal_course` ");
 				    $sql->execute();
