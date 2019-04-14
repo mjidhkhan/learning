@@ -2,19 +2,21 @@
 <?php require_once("includes/connection.php"); ?>
 <?php require_once("includes/functions.php"); ?>
 <?php
-    $user_name= $_SESSION['username'];
-    $query="SELECT *
-	     FROM users
-	     WHERE username = '$user_name' ";
-	$result = mysql_query($query);
-	while ($row = mysql_fetch_array($result)){
-	    $u_name= $row['fullname'];
+	
+	
+    $query=$dbh->prepare("SELECT * FROM users WHERE username =:username ");
+	$query->execute(array(':username'=>$_SESSION['username']));
+	//$result = mysql_query($query);
+	while ($row = $query->fetch()){
+			$fullname= $row['fullname'];
+			
 	    }
 	    
-    $sql=" SELECT *
-            FROM orders
-	    where customer_name = '$u_name' ";
-	    $result = mysql_query($sql);
+    $sql=$dbh->prepare(" SELECT * FROM orders where customer_id =:customer_id ");
+		$sql->execute(array(':customer_id'=>$_SESSION['user_id']));
+		$result = $sql->fetchAll();
+
+		print_r($_SESSION);
 ?>
 <?php include("includes/header.php"); ?>
 	<!------ content area stats here            ----->

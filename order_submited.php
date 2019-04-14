@@ -3,6 +3,8 @@
 <?php require_once("includes/functions.php"); ?>
 <?php include("includes/header.php"); ?>
 <?php
+
+/*
 	print_r($_SESSION);
     $id = ($_POST['course_id']);
 	$user_name= $_SESSION['username'];
@@ -30,14 +32,14 @@
 
 
 
-	/* Fetching user_id on the bases of login user */
+	/* Fetching user_id on the bases of login user *
 	$sql= "SELECT * FROM users
 	     WHERE username =:username ";
 	$result = mysql_query($sql);
 	while ($row = mysql_fetch_array($result)){
 	    $u_name= $row['fullname'];
 	    }
-	/*  INSERting DATA to orders Table */
+	/*  INSERting DATA to orders Table *
 	$sql = "INSERT INTO orders ( 
                             customer_name, order_date , booking_date, meal_type, course_type, course_name , servings, order_status
                             ) VALUES (
@@ -67,13 +69,46 @@
 	while ($row2 = mysql_fetch_array($result2)){
 	    $m_id= $row2['id'];
 	    }*/
-	/*  INSERting DATA to order_detaila Table */
+	/*  INSERting DATA to order_detaila Table *
 	/*$sql2 = "INSERT INTO order_details (
                             meal_type,course_type, course_id , cust_id, servings
                             ) VALUES (
                             '$meal_type','$course_type', '$id', '$u_id','$servings'
                             )";
-			    $result2 = mysql_query($sql2);*/
+			    $result2 = mysql_query($sql2);*
 	
 	//	redirect_to("index.php");
+
+*/
+	if( !empty($_POST)){
+		$customer_id = $_SESSION['user_id'];
+		$meal_type = ($_POST['meal_type']);
+		$meal_course = ($_POST['meal_course']); // Meal Course Type [1-5 : Startesn Main Course,...]
+		$course_id = ($_POST['course_name']); 
+		$servings  = ($_POST['servings']);
+		$booking_date  = ($_POST['booking_date']);
+		$order_date = date('Y-m-d');
+		$order_status= 0;
+		$sql= $dbh->prepare("SELECT * FROM users
+			WHERE id =:customer_id ");
+		$sql->execute(array(':customer_id'=>$customer_id));
+		while ($row = $sql->fetch()){
+			$fullname= $row['fullname'];
+		}
+		/*  INSERting DATA to orders Table */
+		$sql = $dbh->prepare("INSERT INTO orders ( customer_id, order_date,  booking_date, servings, order_status)
+							VALUES (:customer_id, :order_date, :booking_date, :servings, :order_status)");
+		$sql->execute(array(':customer_id'=>$customer_id,':order_date'=>date('Y-m-d'), ':booking_date'=>$booking_date, ':servings'=>$servings, ':order_status'=>$order_status));
+		$order_id = $dbh->lastInsertId();
+		if($order_id> 0){
+			$sql = $dbh->prepare("INSERT INTO order_details ( order_id,  meal_category, meal_course, meal_type)
+									VALUES (:order_id, :meal_category, :meal_course, :meal_type)");
+			$sql->execute(array(':order_id'=>$order_id, ':meal_category'=>$meal_course, ':meal_course'=>$course_id, ':meal_type'=>$meal_type));
+
+			$message= 'Hi, '. $fullname . ' Order Submited Successfully.';
+		}
+	
+	}else{
+	
+	}
 ?>

@@ -4,17 +4,37 @@
 <?php
 
     
-if (isset($_POST['submit'])){
-	// Perform Update
-    $id = htmlentities($_POST['course_id']);
-	$course_name = htmlentities($_POST['course_name']);
-    $prep_date = htmlentities($_POST['prep_date']);
-	$course_type = htmlentities($_POST['course_category']);
-	$time_to_prepare  = htmlentities($_POST['time_to_prepare']);
-	$course_notes  = htmlentities($_POST['course_notes']);
-	$course_instructions  = htmlentities($_POST['course_instructions']);
-	$meal_type_id = htmlentities($_POST['meal_type_id']);
-    }
+if( !empty($_POST)){
+	$customer_id = $_SESSION['user_id'];
+	$meal_type = ($_POST['meal_type']);
+	$meal_course = ($_POST['meal_course']); // Meal Course Type [1-5 : Startesn Main Course,...]
+	$course_id = ($_POST['course_name']); 
+	$servings  = ($_POST['servings']);
+	$booking_date  = ($_POST['booking_date']);
+	$order_date = date('Y-m-d');
+	$order_status= 0;
+	$sql= $dbh->prepare("SELECT * FROM users
+		WHERE id =:customer_id ");
+	$sql->execute(array(':customer_id'=>$customer_id));
+	while ($row = $sql->fetch()){
+		$fullname= $row['fullname'];
+	}
+	/*  INSERting DATA to orders Table */
+	$sql = $dbh->prepare("INSERT INTO orders ( customer_id, order_date,  booking_date, servings, order_status)
+						VALUES (:customer_id, :order_date, :booking_date, :servings, :order_status)");
+	$sql->execute(array(':customer_id'=>$customer_id,':order_date'=>date('Y-m-d'), ':booking_date'=>$booking_date, ':servings'=>$servings, ':order_status'=>$order_status));
+	$order_id = $dbh->lastInsertId();
+	if($order_id> 0){
+		$sql = $dbh->prepare("INSERT INTO order_details ( order_id,  meal_category, meal_course, meal_type)
+								VALUES (:order_id, :meal_category, :meal_course, :meal_type)");
+		$sql->execute(array(':order_id'=>$order_id, ':meal_category'=>$meal_course, ':meal_course'=>$course_id, ':meal_type'=>$meal_type));
+
+		$message= 'Hi, '. $fullname . ' Your Order Submited Successfully.';
+	}
+
+}else{
+
+}
 ?>
 	
 <?php //this query will show all available courses
@@ -26,7 +46,8 @@ if (isset($_POST['submit'])){
 	<!------ content area stats here            ----->
 <div id="content-head"><h3> Welcome ,  <?php echo (strtoupper($_SESSION['username']) )," ";?> Place your Order here... </h3></div>
     <div id="content">
-	<form action="order_info.php" method="post">
+	<?php if (!empty($message)){ echo "<p class=\"message\">" . $message . "</p>";} ?>
+	<form action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>  method="post">
 	    
 	    <table>
 		
@@ -70,7 +91,7 @@ if (isset($_POST['submit'])){
 		</tr>
 		<tr>
 		    <td>Course Name:</td>
-		    <td><select id="course_name" name="course_names" >
+		    <td><select id="course_name" name="course_name" >
 				    <?php
 				    $sql = $dbh->prepare("SELECT * FROM `meal_course` ");
 				    $sql->execute();
