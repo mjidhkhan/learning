@@ -14,7 +14,9 @@
                 //$row= mysql_fetch_array($result);?>
 	<?php while($row= $sql->fetch()){ ?>
                 <h3><?php echo $row['title']; ?></h3>
-                <p><?php echo $row['content']; ?></p>
+                <div><p><img class="customer-view" src="upload/recipe-images/<?php echo $row['recipe_image']; ?>"></p></div>
+
+                <div class="content-area"><p><?php echo $row['content']; ?></p></div>
                 <hr>
         <?php }?>
 

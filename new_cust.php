@@ -25,7 +25,7 @@ if (isset($_POST['submit'])) { // Form has been submitted
                                     $hashed_password = sha1($password);
                                     $sql= $dbh->prepare("SELECT username FROM users
                                             WHERE username =:username ");
-                                            $sql->execute(array(':username'=>$username))
+                                            $sql->execute(array(':username'=>$username));
                                         $result = $sql->rowCount();
                                        // $count= mysql_num_rows($result);
                                                 if($result>0){

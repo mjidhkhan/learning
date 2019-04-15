@@ -15,7 +15,7 @@
         <hr>
 	<?php while($row= $sql->fetch()){ ?>
                 <h3 style="background-color:#eee; height:34px; padding:20px 0 0 20px"><?php echo $row['title']; ?></h3>
-               
+                <p><img  class="recipe-image" src="upload/recipe-images/<?php echo $row['recipe_image']; ?>"></p>
                 <p class="contents"><?php echo $row['content']; ?></p>
                 <br>
                 <hr>

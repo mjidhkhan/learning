@@ -64,7 +64,6 @@ hr {
 
 .contents {
     text-align: justify;
-   
     font-family: Verdana, Arial, Helvetica, sans-serif;
 }
 
@@ -473,10 +472,11 @@ li ul {
 /*-------------------------------*/
 
 #accordion {
-    width: 278px;
+    width: 279px;
     padding-left: 0;
-    float: left;
-    border-bottom: 2px solid #999;
+    /*float: left;*/
+    border-top: 2px solid #ddd;
+    border-bottom: 2px solid #ddd;
 }
 
 #accordion li {
@@ -699,5 +699,26 @@ input.formbutton {
 }
 
 #sidebar {
-    width: 280px !important;
+    width: 279px !important;
+    border-right: 1px solid #ddd;
+}
+
+.recipe-image {
+    width: 100%;
+    position: relative;
+    padding-right: 10px;
+    padding-bottom: 10px;
+}
+
+.customer-view {
+    width: 50%;
+    height: 30%;
+    position: relative;
+    float: left;
+    padding-right: 10px;
+    padding-bottom: 10px;
+}
+
+.content-area {
+    min-height: 350px;
 }

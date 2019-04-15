@@ -8,11 +8,7 @@
                 <link href='stylesheets/jquery.rating.css' type="text/css" rel="stylesheet"/>
                 <link rel="stylesheet" href="stylesheets/stars.css" type="text/css" media="screen" charset="utf-8"/>
                 <link rel="stylesheet" href="stylesheets/clander.css" type="text/css" media="screen" charset="utf-8"/>
-                <script src="jscripts/lib/jquery-1.4.min.js" type="text/javascript" charset="utf-8"></script>
-                <script src="jscripts/lib/jquery-ui-1.7.2.custom.min.js" type="text/javascript" charset="utf-8"></script>
-                <script type="text/javascript" src="jscripts/script.js"></script>
-                <script type="text/javascript" src="jscripts/sidebar.js"></script>
-                <script type="text/javascript" src="jscripts/clander.js"></script>
+               
 	</head>		
 <body>
 <div id="container">

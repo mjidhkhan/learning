@@ -8,7 +8,7 @@
         <?php  if (logged_in()){?>
         <h3> Welcome to Staff area,  <?php echo strtoupper($_SESSION['username']);}?> </h3><hr>
         <?php //this query will show if ingredients quantatiy is low we set the standar of 250 g/ml
-		$sql = $dbh->prepare("SELECT * FROM ingredients WHERE quantity <= 250 ");
+		$sql = $dbh->prepare("SELECT * FROM stock WHERE quantity <= reorder_level ");
 		//$result = mysql_query($sql);
     $sql->execute();
                 if ($row= $sql->fetch() != 0){ ?>
@@ -30,7 +30,7 @@
                 </table> <hr>
 
 	<?php //this query will show all available courses
-		$sql =  $dbh->prepare( "SELECT * FROM `meal_course` ");
+	  $sql =  $dbh->prepare( "SELECT * FROM `course_details` ");
 	  $sql->execute();
         ?>
 	<h3> Available courses</h3>
@@ -44,26 +44,28 @@
             <th>Recipe</th>
 		</tr>
 		<tr>
-                    <?php while($row_1= $sql->fetch()){ ?>
-                    <td><?php echo $row_1['course_name']; ?></td>
-                    <td><?php if ($row_1['course_type']== 2){
-			echo "Vegetarian";
-			}else{
-				echo "Non-vegetarian";} ?></td>
-                  <td><?php echo $row_1['prep_date']; ?></td>
-                    <td><?php  if($row_1['meal_cat_id']== 1){
-					                echo "Starter";}
-				                if($row_1['meal_cat_id']== 2){
-					                echo "Main Course";}
-				                if($row_1['meal_cat_id']== 3){
-					                echo "Desserts";}
-				                if($row_1['meal_cat_id']== 4){
-					                echo "Breakfast";}
-				                if($row_1['meal_cat_id']== 5){
-					                echo "Refreshment";
-				                }; ?></td>
-                    <td><a href="update_course.php?course_id=<?php echo $row_1['id'];?>"> Update</a> </td>
-                    <td><a href="recipe_view.php?course_id=<?php echo $row_1['id'];?>"> View</a> </td>
+                    <?php while($row= $sql->fetch()){ ?>
+                        <?php
+                         $sql =  $dbh->prepare( "SELECT * FROM `meal_course` WHERE id=:id ");
+                         $sql->execute(array(':id'=>$row['course_id']));
+                         $result= $sql->fetch();
+                        
+                         $sql =  $dbh->prepare( "SELECT * FROM `course_type` WHERE id=:id ");
+                         $sql->execute(array(':id'=>$result['course_type']));
+                         $result_course= $sql->fetch();
+
+                         $sql =  $dbh->prepare( "SELECT * FROM `meal_type` WHERE id=:id ");
+                         $sql->execute(array(':id'=>$result['meal_type']));
+                         $result_meal= $sql->fetch();
+                         ?>
+
+                    <td><?php echo $row['course_name']; ?></td>
+                   
+                  <td><?php echo $result_course['course_type']; ?></td>
+                  <td><?php echo $row['course_prep_date']; ?></td>
+                  <td><?php echo $result_meal['meal_type']; ?></td>
+                    <td><a href="update_course.php?course_id=<?php echo $row['id'];?>"> Update</a> </td>
+                    <td><a href="recipe_view.php?course_id=<?php echo $row['id'];?>"> View</a> </td>
 
                 </tr>
                 <?php  }?>
